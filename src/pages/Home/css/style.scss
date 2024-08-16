@@ -1,0 +1,200 @@
+$light-color: #4a4a4a;
+$body-background: #f4f4f4;
+$primary-color: #638eff;
+
+body {
+    background-color: $body-background;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
+
+.container {
+    width: 70%;
+    margin: auto;
+    margin-top: 60px;
+
+    @media (max-width: 768px) {
+        width: 90%;
+        margin-top: 30px;
+    }
+}
+
+.logo img {
+    width: 120px;
+}
+
+.menu-bar ul {
+    display: flex;
+    gap: 10px;
+
+    @media (max-width: 768px) {
+        display: none; /* Hide menu items on small screens */
+        flex-direction: column;
+        background-color: $body-background;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 999; /* Ensure the menu appears above other content */
+    }
+}
+
+.menu-bar.active ul {
+    display: flex; /* Show menu when hamburger is clicked */
+}
+
+.menu-bar li {
+    list-style-type: none;
+    color: $light-color;
+    font-size: 14px;
+    margin-left: 60px;
+
+    &:first-child {
+        margin-left: 0;
+    }
+
+    @media (max-width: 768px) {
+        margin: 15px 20px;
+    }
+}
+
+.menu-btn {
+    color: $primary-color;
+    font-weight: bold;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 1000;
+
+    span {
+        height: 3px;
+        width: 25px;
+        background: $light-color;
+        margin: 4px 0;
+        border-radius: 3px;
+    }
+
+    @media (max-width: 768px) {
+        display: flex; /* Show hamburger icon on small screens */
+    }
+}
+
+// CARD
+
+.main-card {
+    background-color: white;
+    min-height: 350px;
+    width: 84%;
+    margin-top: 30px;
+    padding: 34px 38px 50px 128px;
+    box-shadow: 0 21px 33px 0 rgba(0, 0, 0, .1);
+    border: 1px solid #fff;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically on small screens */
+
+    @media (min-width: 769px) {
+        flex-direction: row;
+        padding: 34px 38px 50px 128px;
+    }
+
+    .card-sidebar {
+        background-color: #f4f4f4;
+        padding: 10px;
+        cursor: pointer;
+        position: relative;
+        right: 0; /* Reset the position on small screens */
+        width: 100%; /* Full width on small screens */
+        display: flex;
+        justify-content: space-between; /* Spread icons evenly */
+
+        @media (min-width: 769px) {
+            width: 5%;
+            flex-direction: column;
+            right: 127px;
+            justify-content: flex-start;
+        }
+
+        div {
+            margin-bottom: 30px;
+
+            @media (max-width: 768px) {
+                margin-bottom: 0;
+            }
+
+            svg {
+                color: $light-color;
+            }
+        }
+
+        .active svg {
+            color: #638eff;
+        }
+    }
+}
+
+.card-container {
+    border: 1px solid #fff;
+    width: 100%;
+
+    h1 {
+        font-size: 36px;
+        font-weight: 700;
+        line-height: .85;
+        letter-spacing: .6px;
+        color: #000;
+        margin-bottom: 28px;
+
+        @media (min-width: 769px) {
+            font-size: 48px;
+        }
+    }
+}
+
+.text-section {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    padding-right: 10px;
+}
+
+@media (max-width: 768px) {
+    .header-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu-bar ul {
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .main-card {
+        padding: 20px;
+    }
+
+    .card-sidebar {
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .text-section {
+        padding-right: 0;
+    }
+}

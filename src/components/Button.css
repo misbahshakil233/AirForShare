@@ -1,0 +1,60 @@
+/* Button.css */
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px; /* Space between buttons */
+  flex-wrap: wrap; /* Ensure buttons wrap on small screens */
+  padding: 20px 0; /* Add padding to prevent overlap with card content */
+}
+
+.button {
+  border: 1px solid black;
+  font-size: 18px;
+  border-radius: 5px;
+  background: linear-gradient(to bottom, #864bff, #5082ff);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: .6px;
+  line-height: 40px;
+  color: #000;
+  padding: 10px 70px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: background 0.3s ease, box-shadow 0.3s ease; 
+  cursor: pointer;
+  border: none;
+}
+
+.button:hover {
+  background: linear-gradient(to bottom, #5082ff, #864bff);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.clear-btn {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.clear-btn:hover {
+  background: linear-gradient(to bottom, #5082ff, #864bff);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .btn-container {
+      justify-content: center; /* Center buttons on small screens */
+      flex-direction: column; /* Stack buttons vertically */
+      gap: 10px;
+  }
+
+  .button, .clear-btn {
+      width: 100%; /* Full width on small screens */
+      text-align: center;
+  }
+}
