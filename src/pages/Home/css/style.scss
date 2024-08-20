@@ -198,3 +198,58 @@ body {
         padding-right: 0;
     }
 }
+
+
+.file-list{
+    div{
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        svg{
+            color: #000;
+            font-size: 64px;
+
+        }
+    }
+}
+
+.file-section {
+    height: 100%;
+    
+    .file-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+  
+      .file-btn {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+  
+        div {
+          display: flex;
+          color: $primary-color;
+          align-items: center;
+  
+          &:hover {
+            text-decoration: underline; // Changed from double to underline
+          }
+  
+          &:active {
+            opacity: 0.5; // Will only apply when the element is clicked
+          }
+  
+          svg {
+            margin-right: 10px;
+            font-size: 20px;
+          }
+        }
+  
+        .btn-download {
+          color: red;
+        }
+      }
+    }
+  }
+  

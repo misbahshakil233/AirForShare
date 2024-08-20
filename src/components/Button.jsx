@@ -8,7 +8,7 @@ const Button = ({ onClick, title }) => {
       {title}
     </button>
 <div className='clear-container'>
-  <button className='clear-btn'>Clear</button>
+ 
 </div>
 
     </div>

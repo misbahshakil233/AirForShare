@@ -1,14 +1,57 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LOGO from '../../../assets/logo.svg';
 import "../css/style.scss";
 import { ImFilesEmpty } from "react-icons/im";
 import { GrTextAlignFull } from "react-icons/gr";
-import TextArea from '../../../components/textArea';  // Correct component naming
+import TextArea from '../../../components/TextArea';
 import Button from '../../../components/Button';
+import { useDropzone } from 'react-dropzone';
+import DropZone from '../../../components/DropZone';
+import FileList from '../../../components/FileList';
+import { MdDelete } from "react-icons/md";
+import { FaDownload } from "react-icons/fa";
+import { database, ref, set, onValue } from '../../../db'; // Use 'database' consistently
 
 const Home = () => {
   const [type, setType] = useState("text");
-  const [menuOpen, setMenuOpen] = useState(false); // State to control menu visibility
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [files, setFiles] = useState([]);
+  const [textValue, setTextValue] = useState("");
+
+  const onDrop = acceptedFiles => {
+    console.log(acceptedFiles, "acceptedFiles");
+    setFiles([...files, ...acceptedFiles]);
+  };
+
+  const saveChanges = () => {
+    const userId = "your-user-id"; // Replace this with the actual user ID you want to use
+
+    console.log(textValue, "textValue");
+
+    set(ref(database, 'sharing/' + userId), {
+      text: textValue,
+    })
+    .then(() => {
+      console.log("Data saved successfully!");
+    })
+    .catch((error) => {
+      console.error("Error saving data:", error);
+    });
+  };
+
+  useEffect(() => {
+    const starCountRef = ref(database, 'sharing'); // Use 'database' consistently
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setTextValue(data.text);
+      }
+    }, (error) => {
+      console.error("Error fetching data:", error);
+    });
+  }, []); // Add an empty dependency array
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -49,15 +92,43 @@ const Home = () => {
             <div>
               <div className='text-section'>
                 <h1>Text</h1>
-                <TextArea /> {/* Use the imported TextArea component here */}
+                <TextArea value={textValue} onChange={(e) => setTextValue(e.target.value)} />
               </div>
               <div>
-                <Button title={"Save"} />
+              <Button onClick={saveChanges} title={"Clear"} />
+              
+                <Button onClick={saveChanges} title={"Save"} />
+
               </div>
             </div>
           ) : (
             <div className='file-section'>
-              <h1>File</h1>
+              <div className='file-header'>
+                <h1>File</h1>
+                <div className='file-btn'>
+                  <div>
+                    <FaDownload /> 
+                    Download All
+                  </div>
+                  <div onClick={() => setFiles([])} className='btn-download'>
+                    <MdDelete />
+                    Delete All
+                  </div>
+                </div>
+              </div>
+              {files.length ?
+                <FileList files={files} onDrop={onDrop} />
+                :
+                <DropZone 
+                  onDrop={onDrop}
+                  textElement={
+                    <>
+                    Drag and drop any files up to 2 files, 5Mbs each or <span> Browse
+                    Upgrade </span>to get more space
+                    </>
+                  }
+                />
+              }
             </div>
           )}
         </div>
