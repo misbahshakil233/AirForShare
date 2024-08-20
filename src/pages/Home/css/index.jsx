@@ -17,6 +17,7 @@ const Home = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [files, setFiles] = useState([]);
   const [textValue, setTextValue] = useState("");
+  const [isText, setIsText] = useState(false);
 
   const onDrop = acceptedFiles => {
     console.log(acceptedFiles, "acceptedFiles");
@@ -45,6 +46,9 @@ const Home = () => {
       const data = snapshot.val();
       if (data) {
         setTextValue(data.text);
+        if(data.text){
+          setIsText(true);
+        }
       }
     }, (error) => {
       console.error("Error fetching data:", error);
@@ -92,13 +96,36 @@ const Home = () => {
             <div>
               <div className='text-section'>
                 <h1>Text</h1>
-                <TextArea value={textValue} onChange={(e) => setTextValue(e.target.value)} />
+                <TextArea
+                  value={textValue}
+                  onChange={(e) => {
+                    setTextValue(e.target.value);
+                    setIsText(false);
+                  }}
+                />
               </div>
               <div>
-              <Button onClick={saveChanges} title={"Clear"} />
-              
-                <Button onClick={saveChanges} title={"Save"} />
+                <Button
+                  onClick={() => {
+                    setTextValue(""); // Clear the text value in the state
+                    const userId = "your-user-id"; // Replace this with the actual user ID you want to use
 
+                    // Clear the data in the database
+                    set(ref(database, 'sharing/' + userId), {
+                      text: "",
+                    })
+                    .then(() => {
+                      console.log("Data cleared successfully!");
+                    })
+                    .catch((error) => {
+                      console.error("Error clearing data:", error);
+                    });
+                  }}
+                  title={"Clear"} 
+                />
+                
+                  <Button onClick={saveChanges} title={"Save"} />
+                
               </div>
             </div>
           ) : (
@@ -116,19 +143,18 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              {files.length ?
+              {files.length ? (
                 <FileList files={files} onDrop={onDrop} />
-                :
+              ) : (
                 <DropZone 
                   onDrop={onDrop}
                   textElement={
                     <>
-                    Drag and drop any files up to 2 files, 5Mbs each or <span> Browse
-                    Upgrade </span>to get more space
+                      Drag and drop any files up to 2 files, 5Mbs each or <span>Browse</span> to get more space
                     </>
                   }
                 />
-              }
+              )}
             </div>
           )}
         </div>
