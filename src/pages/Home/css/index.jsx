@@ -109,7 +109,7 @@ const Home = () => {
   <div className='links-section'>
     {links.map((v, i) => (
       <div key={i} className='link-item'>
-        <a href={v} target="_blank" rel="noopener noreferrer">Link {i + 1}</a>
+        <a href={v} target="_blank" rel="noopener noreferrer"> {v}</a>
       </div>
     ))}
   </div>

@@ -252,40 +252,27 @@ body {
       }
     }
   }
-//   .text-footer{
-// display: flex;
-// justify-content: space-between;
-// align-items: center;
-// position: relative;
-// div{
-//     span{
-//         a{
-//             color: $primary-color;
-//             bottom: 40px;
-//             position: absolute;
-//         }
-//     }
-// }
-//   }
-  .text-footer {
+
+
+  
+.text-footer {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: space-between;
+    align-items: end; // Adjust alignment based on your design
+    margin-top: 20px;  // Ensure there's enough space for the links
+    overflow: visible;  // Ensure no overflow issues
     
   }
   
-  .text-footer a {
-    display: inline-block;
-    margin: 5px 0; /* Space between links */
-    color: blue; /* Link color */
-    text-decoration: underline; /* Underline links */
-    color: $primary-color;
-position: relative;
-top: 200px;
-              
+  .links-section {
+    width: 100%;  // Ensure it takes the full width
+    margin-top: 10px; // Space between text and links
+   
   }
   
-  .text-footer a:hover {
-    color: darkblue; /* Link color on hover */
+  .link-item {
+    padding: 5px 0;  // Add some padding to each link
+    
   }
   
