@@ -45,10 +45,8 @@ const Home = () => {
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        setTextValue(data.text);
-        if(data.text){
-          setIsText(true);
-        }
+        setTextValue(data.text || ""); // Ensure textValue is not undefined
+        setIsText(!!data.text); // Set isText based on whether text exists
       }
     }, (error) => {
       console.error("Error fetching data:", error);
@@ -60,6 +58,9 @@ const Home = () => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  // Extract links from textValue
+  const links = textValue.match(/http[s]?:\/\/\S+/gi) || [];
 
   return (
     <div className='container'>
@@ -104,28 +105,34 @@ const Home = () => {
                   }}
                 />
               </div>
-              <div>
-                <Button
-                  onClick={() => {
-                    setTextValue(""); // Clear the text value in the state
-                    const userId = "your-user-id"; // Replace this with the actual user ID you want to use
-
-                    // Clear the data in the database
-                    set(ref(database, 'sharing/' + userId), {
-                      text: "",
-                    })
-                    .then(() => {
-                      console.log("Data cleared successfully!");
-                    })
-                    .catch((error) => {
-                      console.error("Error clearing data:", error);
-                    });
-                  }}
-                  title={"Clear"} 
-                />
-                
+              <div className='text-footer'>
+  <div className='links-section'>
+    {links.map((v, i) => (
+      <div key={i} className='link-item'>
+        <a href={v} target="_blank" rel="noopener noreferrer">Link {i + 1}</a>
+      </div>
+    ))}
+  </div>
+  <div>
+                  
+                </div>
+                <div>
+                  <Button 
+                    onClick={() => {
+                      setTextValue("");
+                      const userId = "your-user-id"; 
+                      set(ref(database, 'sharing/' + userId), { text: "" })
+                        .then(() => {
+                          console.log("Data cleared successfully!");
+                        })
+                        .catch((error) => {
+                          console.error("Error clearing data:", error);
+                        });
+                    }}
+                    title={"Clear"} 
+                  />
                   <Button onClick={saveChanges} title={"Save"} />
-                
+                </div>
               </div>
             </div>
           ) : (

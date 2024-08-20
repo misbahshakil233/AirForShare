@@ -252,4 +252,40 @@ body {
       }
     }
   }
+//   .text-footer{
+// display: flex;
+// justify-content: space-between;
+// align-items: center;
+// position: relative;
+// div{
+//     span{
+//         a{
+//             color: $primary-color;
+//             bottom: 40px;
+//             position: absolute;
+//         }
+//     }
+// }
+//   }
+  .text-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+  }
+  
+  .text-footer a {
+    display: inline-block;
+    margin: 5px 0; /* Space between links */
+    color: blue; /* Link color */
+    text-decoration: underline; /* Underline links */
+    color: $primary-color;
+position: relative;
+top: 200px;
+              
+  }
+  
+  .text-footer a:hover {
+    color: darkblue; /* Link color on hover */
+  }
   
